@@ -135,6 +135,9 @@ public class Game
         else if (commandWord.equals("go")) {
             goRoom(command);
         }
+        else if (commandWord.equals("get")) {
+            pickUpItem(command);
+        }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -185,7 +188,32 @@ public class Game
             System.out.println(health.getHealthString(currentHealthNum));
         }
     }
+    
+    public void pickUpItem(){
+        
+         if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Get what?");
+            return;
+        }
 
+        String item = command.getSecondWord();
+
+        availableItems = getItems(currentRoom);
+        
+
+        if (nextRoom == null) {
+            System.out.println("There is no door!");
+        }
+        else {
+            currentRoom = nextRoom;
+            System.out.println(currentRoom.getLongDescription());
+            
+            System.out.println(health.getHealthString(currentHealthNum));
+        }
+        
+        
+    }
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
