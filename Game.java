@@ -39,30 +39,41 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room room1, room2, room3, room4, room5, room6, beach, ocean;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        
+        room1 = new Room("outside the main entrance of the university");
+        room2 = new Room("in a lecture theater");
+        room3 = new Room("in the campus pub");
+        room4 = new Room("in a computing lab");
+        room5 = new Room("in the computing admin office");
+        room6 = new Room("in the computing admin office");
+        beach = new Room("in the computing admin office");    
+        ocean = new Room("in the computing admin office");    /// needs to be a special room 
         // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        room1.setExit("up", room4);
+        room1.setExit("down",beach );
+        room1.setExit("right", room3);
+        room1.setExit("left", room2);
+        
+        
+        room2.setExit("up", room6);
+        room2.setExit("right", room4);
+        
+        room3.setExit("up", room5);
+        room3.setExit("left", room1);
+        
+        room4.setExit("down", room1);
+        room4.setExit("right", room5);
+        room4.setExit("left", room6);
+        
+        room5.setExit("down", room3);
+        room5.setExit("left", room4);
+        
+        room6.setExit("down", room2);
+        room6.setExit("left", room4);
 
-        theater.setExit("west", outside);
-
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
-
-        currentRoom = outside;  // start game outside
+        currentRoom = beach;  // start game outside
     }
     private void createItems()
     {
@@ -202,8 +213,8 @@ public class Game
         availableItems = getItems(currentRoom);
         
 
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
+        if (availableItems == null) {
+            System.out.println("You have no Items");
         }
         else {
             currentRoom = nextRoom;
