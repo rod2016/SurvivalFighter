@@ -111,6 +111,7 @@ public class Game
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
+        System.out.println(health.getHealthString(currentHealthNum));
     }
 
     /**

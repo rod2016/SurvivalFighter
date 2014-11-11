@@ -25,37 +25,37 @@ public class Health
     {
         switch(healthNum) {
             case 1:
-            healthString = "#         ";
+            healthString = "|#         |";
             break;
             case 2:
-            healthString = "##        ";
+            healthString = "|##        |";
             break;
             case 3:
-            healthString = "###       ";
+            healthString = "|###       |";
             break;
             case 4:
-            healthString = "####      ";
+            healthString = "|####      |";
             break;
             case 5:
-            healthString = "#####     ";
+            healthString = "|#####     |";
             break;
             case 6:
-            healthString = "######    ";
+            healthString = "|######    |";
             break;
             case 7:
-            healthString = "#######   ";
+            healthString = "|#######   |";
             break;
             case 8:
-            healthString = "########  ";
+            healthString = "|########  |";
             break;
             case 9:
-            healthString = "######### ";
+            healthString = "|######### |";
             break;
             case 10:
-            healthString = "##########";
+            healthString = "|##########|";
             break;
         }
-        return healthString = healthString;
+        return healthString = "You Health level is: " +healthString;
     }
     
     public int getHealthNum()
