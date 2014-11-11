@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -22,22 +24,26 @@ public class Game
     private Room currentRoom;
     private Health health;
     private int currentHealthNum;
+    private ArrayList itemsInPack;
+    private ArrayList boatItems;
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
-        createRooms();
+        createRoomsAndItems();
+        
         parser = new Parser();
         parserWithFileInput = new ParserWithFileInput();
         health = new Health();
         currentHealthNum = health.getHealthNum();
+        itemsInPack = new ArrayList();
     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
+    private void createRoomsAndItems()
     {
         Room room1, room2, room3, room4, room5, room6, beach, ocean;
       
@@ -72,15 +78,22 @@ public class Game
         
         room6.setExit("down", room2);
         room6.setExit("left", room4);
-
+     
         currentRoom = beach;  // start game outside
+        beach.setExit("up", room1);
+        
+        Item sword, bat, gun;
+        
+        sword = new Item("this will hurt things");
+        bat = new Item("this will hurt things");
+        gun = new Item("this will hurt things");
+        
+        room1.setItem(sword, "sword");
+        room1.setItem(bat, "bat");
+        room1.setItem(gun, "gun");
+        
     }
-    private void createItems()
-    {
-        Room outside, theater, pub, lab, office;
-      
-       
-    }
+    
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -147,7 +160,7 @@ public class Game
             goRoom(command);
         }
         else if (commandWord.equals("get")) {
-            pickUpItem(command);
+           pickUpItem(command);
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
@@ -200,7 +213,7 @@ public class Game
         }
     }
     
-    public void pickUpItem(){
+    public void pickUpItem(Command command){
         
          if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
@@ -209,18 +222,17 @@ public class Game
         }
 
         String item = command.getSecondWord();
-
-        availableItems = getItems(currentRoom);
+        Boolean isItInRoom = currentRoom.availabilityCheck(item);
         
-
-        if (availableItems == null) {
-            System.out.println("You have no Items");
+        if (isItInRoom == false) {
+            System.out.println("Item not in this room");
         }
         else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
             
-            System.out.println(health.getHealthString(currentHealthNum));
+            //currentRoom = nextRoom;//
+           System.out.println("add to add to pack");
+            
+            //System.out.println(health.getHealthString(currentHealthNum));
         }
         
         

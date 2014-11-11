@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class Item 
 {
     private String description;
-    private HashMap<Room, String> itemsInRoom;
+    private HashMap<Room, String> itemInRoom;
     
     /**
      * Create a room described "description". Initially, it has
@@ -29,7 +29,7 @@ public class Item
     public Item(String description) 
     {
         this.description = description;
-        itemsInRoom = new HashMap<Room, String>();
+        itemInRoom = new HashMap<Room, String>();
         
     }
 
@@ -40,7 +40,7 @@ public class Item
      */
     public void setItem(Room thisRoom, String itemName) 
     {
-       itemsInRoom.put(thisRoom, itemName);
+       itemInRoom.put(thisRoom, itemName);
     }
 
 
@@ -49,10 +49,10 @@ public class Item
      * "Exits: north west".
      * @return Details of the room's exits.
      */
-    private String getItemString()
+    private String getItemsInRoom()
     {
-        String returnString = "Items:";
-        Set<Room> keys = itemsInRoom.keySet();
+        String returnString = "Items in room:";
+        Set<Room> keys = itemInRoom.keySet();
         for(Room itemName : keys) {
             returnString += " " + itemName;
         }
