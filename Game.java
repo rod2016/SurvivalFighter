@@ -108,7 +108,15 @@ public class Game
         while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
+            if(currentHealthNum == 0){
+                finished = true;
+            }
         }
+        if(currentHealthNum == 0)
+        {
+             System.out.println("You died");
+             
+            }
         System.out.println("Thank you for playing.  Good bye.");
     }
     public void playWithFileInput() 
@@ -162,6 +170,9 @@ public class Game
         }
         else if (commandWord.equals("get")) {
            pickUpItem(command);
+        }
+        else if (commandWord.equals("die")) {
+           die();
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
@@ -299,5 +310,11 @@ public class Game
         }
         return itemsInPackList;
         
+    }
+    
+    public void die()
+    {
+       currentHealthNum = currentHealthNum - 1;
+       System.out.println("Hurt by 1");
     }
 }
