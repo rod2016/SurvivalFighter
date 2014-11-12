@@ -21,6 +21,4 @@ comment6.target=Room\ getExit(java.lang.String)
 comment6.text=\n\ Return\ the\ room\ that\ is\ reached\ if\ we\ go\ from\ this\ room\ in\ direction\n\ "direction".\ If\ there\ is\ no\ room\ in\ that\ direction,\ return\ null.\n\ @param\ direction\ The\ exit's\ direction.\n\ @return\ The\ room\ in\ the\ given\ direction.\n
 comment7.params=item
 comment7.target=boolean\ availabilityCheck(java.lang.String)
-comment8.params=item
-comment8.target=Item\ getItem(java.lang.String)
-numComments=9
+numComments=8
