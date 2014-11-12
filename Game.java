@@ -235,6 +235,35 @@ public class Game
             //System.out.println(health.getHealthString(currentHealthNum));
         }
         
+        public void dropItem(Comamand command)
+    {
+         if(!command.hasSecondWord()) {
+                 System.out.println("Drop what?");
+            return;}
+            
+            String item = command.getSecondWord();
+            
+            Boolean isPackFull = currentRoom.packCheck(item);
+            
+            if(isPackFull == false){
+                System.out.println("No items to drop")}
+                
+                else {
+                    System.out.println("drop item from pack");}
+                    
+                }
+    }
+               
+                
+                
+            
+            
+        
+
+        
+            
+        }
+        }
         
     }
     /** 
