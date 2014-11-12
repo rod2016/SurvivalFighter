@@ -21,6 +21,7 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<Item, String> itemsInRoom;
+    private ArrayList itemsInPack;
 
     /**
      * Create a room described "description". Initially, it has
@@ -109,7 +110,6 @@ public class Room
         }
         return false;
     }
-<<<<<<< HEAD
 
     public boolean packCheck(String item)
 
@@ -128,10 +128,6 @@ public class Room
     return false;}
 }
 
-=======
-    
-    
->>>>>>> parent of 792078a... packCheck
     
 }
 
