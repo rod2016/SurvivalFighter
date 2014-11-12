@@ -107,7 +107,22 @@ public class Room
         }
         return false;
     }
-    
+    public Item getItem(String item)
+    {
+        Set<Item> keys = itemsInRoom.keySet();
+        for(Item thisItem : keys) {
+            String thisItemName = itemsInRoom.get(thisItem);
+            
+            if(thisItemName.equals(item)){
+               itemsInRoom.remove(thisItem);
+               return thisItem; 
+            }
+            
+        }
+        return null; 
+        
+    }
+  
     
     
     }

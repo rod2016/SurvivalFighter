@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.util.HashMap;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -24,8 +24,9 @@ public class Game
     private Room currentRoom;
     private Health health;
     private int currentHealthNum;
-     private ArrayList<String> itemsInPack;
+    private ArrayList<String> itemsInPack;  // will taken away and hashmap used
     private ArrayList<String> boatItems;
+    //private HaspMap<Items, String>itemsInHashmapPack;
     /**
      * Create the game and initialise its internal map.
      */
@@ -240,7 +241,7 @@ public class Game
             System.out.println("Item not in this room");
         }
         else {
-            
+            //Item itemsInHashmapPack();
             itemsInPack.add(item);
             System.out.println("you picked up the "+item);
         }
