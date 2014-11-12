@@ -24,8 +24,8 @@ public class Game
     private Room currentRoom;
     private Health health;
     private int currentHealthNum;
-    private ArrayList itemsInPack;
-    private ArrayList boatItems;
+    private ArrayList<String> itemsInPack;
+    private ArrayList<String> boatItems;
     /**
      * Create the game and initialise its internal map.
      */
@@ -37,7 +37,7 @@ public class Game
         parserWithFileInput = new ParserWithFileInput();
         health = new Health();
         currentHealthNum = health.getHealthNum();
-        itemsInPack = new ArrayList();
+        itemsInPack = new ArrayList<String>();
     }
 
     /**
@@ -136,6 +136,7 @@ public class Game
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
         System.out.println(health.getHealthString(currentHealthNum));
+        System.out.println("your pack contains: " +printItemsInPack());
     }
 
     /**
@@ -210,6 +211,7 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
             
             System.out.println(health.getHealthString(currentHealthNum));
+            System.out.println(printItemsInPack());
         }
     }
     
@@ -228,11 +230,9 @@ public class Game
             System.out.println("Item not in this room");
         }
         else {
+            itemsInPack.add(item);
+            System.out.println("you picked up the "+item);
             
-            //currentRoom = nextRoom;//
-           System.out.println("add to add to pack");
-            
-            //System.out.println(health.getHealthString(currentHealthNum));
         }
         
         public void dropItem(Comamand command)
@@ -280,5 +280,24 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+    
+    public String printItemsInPack()
+    {
+        int i = 1;
+        int numberOfItemsInPack = itemsInPack.size();
+        String itemsInPackList = new String();
+        if (itemsInPack.size() == 0){
+            return "you have nothing in you bag";
+        }
+        
+        while(i <= itemsInPack.size())
+        {
+            
+            itemsInPackList = itemsInPackList +","+ itemsInPack.get(i-1);
+            i++;
+        }
+        return itemsInPackList;
+        
     }
 }
