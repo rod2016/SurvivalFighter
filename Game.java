@@ -237,13 +237,12 @@ public class Game
         String item = command.getSecondWord();
         Boolean isItInRoom = currentRoom.availabilityCheck(item);
         
-        if (isItInRoom == false) {
-            System.out.println("Item not in this room");
-        }
-        else {
+        if (isItInRoom == true) {
             itemsInPack.add(item);
             System.out.println("you picked up the "+item);
-            
+        }
+        else {
+            System.out.println("Item not in this room");
         }
         
         public void dropItem(Comamand command)
