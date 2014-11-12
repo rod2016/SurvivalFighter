@@ -21,6 +21,7 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<Item, String> itemsInRoom;
+    private ArrayList itemsInPack;
 
     /**
      * Create a room described "description". Initially, it has
@@ -106,6 +107,23 @@ public class Room
             
         }
         return false;
+    }
+    public boolean packCheck(String item)
+    
+    { 
+    for(int i=0;i < itemsInPack.size();i++)
+    
+    thisItem = itemsInPack.get(i);
+    String thisItemName = itemsInPack.get(thisItem);}
+        
+        if(thisItemName.equals(item))
+    {
+        itemsInPack.remove(thisItem);
+        itemsInRoom.add(thisItem);
+    return true;}
+        
+    
+    return false;}
     }
     
     
