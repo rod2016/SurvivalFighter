@@ -305,7 +305,7 @@ public class Game
         while(i <= itemsInPack.size())
         {
             
-            itemsInPackList = itemsInPackList +","+ itemsInPack.get(i-1);
+            itemsInPackList = itemsInPackList +" "+ itemsInPack.get(i-1);
             i++;
         }
         return itemsInPackList;
