@@ -13,7 +13,11 @@ public class CommandWords
 {
     // a constant array that holds all valid command words
     private static final String[] validCommands = {
+<<<<<<< Updated upstream
         "go", "quit", "help", "get","die","drop"
+=======
+        "go", "quit", "help", "get", "die" ,"drop"
+>>>>>>> Stashed changes
     };
 
     /**

@@ -21,7 +21,7 @@ public class Seed
     public void DoRandom()
     {
         long seed = 20;
-        rgenerator = new Random(seen);
+        rgenerator = new Random(seed);
         
         System.out.prinln(rgenerator.nextInt(32));
         System.out.prinln(rgenerator.nextInt(32));
