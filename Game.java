@@ -108,11 +108,11 @@ public class Game
         while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
-            if(currentHealthNum == 0){
+            if(currentHealthNum <= 0){
                 finished = true;
             }
         }
-        if(currentHealthNum == 0)
+        if(currentHealthNum <= 0)
         {
              System.out.println("You died");
              
