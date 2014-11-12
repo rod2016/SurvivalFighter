@@ -263,6 +263,7 @@ public class Game
             System.out.println("Item not in this room");
         }
         
+<<<<<<< HEAD
         public void dropItem(Comamand command)
           {
          if(!command.hasSecondWord()) {
@@ -292,6 +293,8 @@ public class Game
             
         }
         }
+=======
+>>>>>>> parent of c5800ce... dropItem method
         
     }
     /** 
