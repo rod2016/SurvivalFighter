@@ -115,10 +115,28 @@ public class Game
         if(currentHealthNum <= 0)
         {
              System.out.println("You died");
-             
+             System.out.println("Want to play again");
+             Command command = parser.getCommand();
+             String YN command.getCommandWord();
+             boolean Play = YN.isYesOrNo(YN);
+             while (false){
+             System.out.println("that is not Y or N");
+             Command command = parser.getCommand();
+             String YN command.getCommandWord();
+             boolean Play = YN.isYesOrNo(YN);
             }
+            
+        }
         System.out.println("Thank you for playing.  Good bye.");
     }
+     public boolean isYesOrNo(String YN){
+         if(YN.equals("y")|| YN.equals("n")){
+             return true;
+            }
+          else{
+              return false;
+            }
+          }
     public void playWithFileInput() 
     {            
         printWelcome();
