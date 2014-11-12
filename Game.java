@@ -24,7 +24,7 @@ public class Game
     private Room currentRoom;
     private Health health;
     private int currentHealthNum;
-     private ArrayList<String> itemsInPack;
+    private ArrayList<String> itemsInPack;
     private ArrayList<String> boatItems;
     /**
      * Create the game and initialise its internal map.
@@ -32,7 +32,7 @@ public class Game
     public Game() 
     {
         createRoomsAndItems();
-        
+
         parser = new Parser();
         parserWithFileInput = new ParserWithFileInput();
         health = new Health();
@@ -46,54 +46,53 @@ public class Game
     private void createRoomsAndItems()
     {
         Room room1, room2, room3, room4, room5, room6, beach, ocean;
-      
+
         // create the rooms
-        room1 = new Room("outside the main entrance of the university");
-        room2 = new Room("in a lecture theater");
-        room3 = new Room("in the campus pub");
-        room4 = new Room("in a computing lab");
-        room5 = new Room("in the computing admin office");
-        room6 = new Room("in the computing admin office");
-        beach = new Room("in the computing admin office");    
-        ocean = new Room("in the computing admin office");    /// needs to be a special room 
+        room1 = new Room("Creepy canopy area");
+        room2 = new Room("Spooky swap area");
+        room3 = new Room("Abandoned tavern");
+        room4 = new Room("Smelly seaweed area");
+        room5 = new Room("Palm tree para-dies");
+        room6 = new Room("Field of corpses");
+        beach = new Room("Wonderful, beautiful, safe, pretty beach");    
+        ocean = new Room("Death Ocean");    /// needs to be a special room 
         // initialise room exits
         room1.setExit("up", room4);
         room1.setExit("down",beach );
         room1.setExit("right", room3);
         room1.setExit("left", room2);
-        
-        
+
         room2.setExit("up", room6);
         room2.setExit("right", room4);
-        
+
         room3.setExit("up", room5);
         room3.setExit("left", room1);
-        
+
         room4.setExit("down", room1);
         room4.setExit("right", room5);
         room4.setExit("left", room6);
-        
+
         room5.setExit("down", room3);
         room5.setExit("left", room4);
-        
+
         room6.setExit("down", room2);
         room6.setExit("left", room4);
-     
+
         currentRoom = beach;  // start game outside
         beach.setExit("up", room1);
-        
+
         Item sword, bat, gun;
-        
+
         sword = new Item("this will hurt things");
         bat = new Item("this will hurt things");
         gun = new Item("this will hurt things");
-        
+
         room1.setItem(sword, "sword");
         room1.setItem(bat, "bat");
         room1.setItem(gun, "gun");
-        
+
     }
-    
+
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -103,7 +102,7 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -114,17 +113,18 @@ public class Game
         }
         if(currentHealthNum <= 0)
         {
-             System.out.println("You died");
-             
-            }
+            System.out.println("You died");
+
+        }
         System.out.println("Thank you for playing.  Good bye.");
     }
+
     public void playWithFileInput() 
     {            
         printWelcome();
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parserWithFileInput.getCommand();
@@ -132,6 +132,7 @@ public class Game
         }
         System.out.println("Thank you for playing.  Good bye.");
     }
+
     /**
      * Print out the opening message for the player.
      */
@@ -169,10 +170,10 @@ public class Game
             goRoom(command);
         }
         else if (commandWord.equals("get")) {
-           pickUpItem(command);
+            pickUpItem(command);
         }
         else if (commandWord.equals("die")) {
-           die();
+            die();
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
@@ -224,10 +225,10 @@ public class Game
             System.out.println(health.getHealthString(currentHealthNum));
         }
     }
-    
+
     public void pickUpItem(Command command){
-        
-         if(!command.hasSecondWord()) {
+
+        if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             System.out.println("Get what?");
             return;
@@ -235,19 +236,20 @@ public class Game
 
         String item = command.getSecondWord();
         Boolean isItInRoom = currentRoom.availabilityCheck(item);
-        
+
         if (isItInRoom == false) {
             System.out.println("Item not in this room");
         }
         else {
-            
+
             itemsInPack.add(item);
             System.out.println("you picked up the "+item);
         }
-        
-        
+
     }
+
     /** 
+
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
      * @return true, if this command quits the game, false otherwise.
@@ -262,7 +264,7 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-      
+
     public String printItemsInPack()
     {
         int i = 1;
@@ -271,19 +273,67 @@ public class Game
         if (itemsInPack.size() == 0){
             return "you have nothing in you bag";
         }
-        
+
         while(i <= itemsInPack.size())
         {
-            
+
             itemsInPackList = itemsInPackList +" "+ itemsInPack.get(i-1);
             i++;
         }
         return itemsInPackList;
-        
+
     }
+
+    public void dropItem(Command command)
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Drop what?");
+            return;}
+
+        String item = command.getSecondWord();
+
+        Boolean isPackFull = packCheck(item);
+
+        if(isPackFull == false){
+            System.out.println("No items to drop");}
+
+        else {
+            
+            itemsInPack.remove(item);
+            System.out.println("you dropped  the "+item);
+        }
+        
+        }
+
+    
+
     public void die()
     {
-       currentHealthNum = currentHealthNum - 1;
-       System.out.println("Hurt by 1");
+        currentHealthNum = currentHealthNum - 1;
+        System.out.println("Hurt by 1");
+    }
+
+    public boolean packCheck(String item)
+
+    { 
+        for(int i=0;i < itemsInPack.size();i++)
+        {
+
+            //String thisItem = itemsInPack.get(i);
+            String thisItemName = itemsInPack.get(i);
+
+            if(thisItemName.equals(item))
+            {
+
+                itemsInPack.remove(i);
+                //currentRoom.setItem(
+                return true;
+            }
+
+
+        }
+        return false;
+
     }
 }
+
