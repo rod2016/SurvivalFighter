@@ -13,8 +13,8 @@ import java.util.ArrayList;
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2011.08.08
+ * @authors Ioana Bondar, Roderick Jackson, Iron Meng, Sally Tang
+ * Fall 2014 - MIST 4600
  */
 
 public class Game 
@@ -129,14 +129,17 @@ public class Game
         }
         System.out.println("Thank you for playing.  Good bye.");
     }
-     public boolean isYesOrNo(String YN){
+    
+     public boolean isYesOrNo(String YN)
+     {
          if(YN.equals("y")|| YN.equals("n")){
              return true;
             }
           else{
               return false;
             }
-          }
+     }
+     
     public void playWithFileInput() 
     {            
         printWelcome();
@@ -150,6 +153,7 @@ public class Game
         }
         System.out.println("Thank you for playing.  Good bye.");
     }
+    
     /**
      * Print out the opening message for the player.
      */
@@ -281,17 +285,9 @@ public class Game
                     
                 }
     }
-               
-                
-                
-            
-            
         
-
-        
-            
         }
-        }
+       
         
     }
     /** 
