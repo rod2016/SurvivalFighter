@@ -48,14 +48,14 @@ public class Game
         Room room1, room2, room3, room4, room5, room6, beach, ocean;
       
         // create the rooms
-        room1 = new Room("outside the main entrance of the university");
-        room2 = new Room("in a lecture theater");
-        room3 = new Room("in the campus pub");
-        room4 = new Room("in a computing lab");
-        room5 = new Room("in the computing admin office");
-        room6 = new Room("in the computing admin office");
-        beach = new Room("in the computing admin office");    
-        ocean = new Room("in the computing admin office");    /// needs to be a special room 
+        room1 = new Room("Smelly Seaweed Area");
+        room2 = new Room("Creepy Canopy Area");
+        room3 = new Room("Haunted Hunting Grounds");
+        room4 = new Room("Sleepy Swamp Area ");
+        room5 = new Room("Spooky Tavern");
+        room6 = new Room("Deathly Graveyard Area");
+        beach = new Room("Really warm, nice, beautiful beach");    
+        ocean = new Room("Death Ocean");    /// needs to be a special room 
         // initialise room exits
         room1.setExit("up", room4);
         room1.setExit("down",beach );
