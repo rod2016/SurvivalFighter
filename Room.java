@@ -21,7 +21,6 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<Item, String> itemsInRoom;
-    private ArrayList itemsInPack;
 
     /**
      * Create a room described "description". Initially, it has
@@ -45,12 +44,10 @@ public class Room
     {
         exits.put(direction, neighbor);
     }
-
     public void setItem(Item item, String info) 
     {
         itemsInRoom.put(item,info);
     }
-
     /**
      * @return The short description of the room
      * (the one that was defined in the constructor).
@@ -96,38 +93,22 @@ public class Room
     {
         return exits.get(direction);
     }
-
+    
     public boolean availabilityCheck(String item){
         Set<Item> keys = itemsInRoom.keySet();
         for(Item thisItem : keys) {
             String thisItemName = itemsInRoom.get(thisItem);
-
+            
             if(thisItemName.equals(item)){
-                itemsInRoom.remove(thisItem);
-                return true; 
+               itemsInRoom.remove(thisItem);
+               return true; 
             }
-
+            
         }
         return false;
     }
-
-    public boolean packCheck(String item)
-
-    { 
-        for(int i=0;i < itemsInPack.size();i++)
-
-            thisItem = itemsInPack.get(i);
-        String thisItemName = itemsInPack.get(thisItem);}
-
-    if(thisItemName.equals(item))
-    {
-        itemsInPack.remove(thisItem);
-        itemsInRoom.add(thisItem);
-        return true;}
-
-    return false;}
-}
-
     
-}
+    
+    
+    }
 
