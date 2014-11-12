@@ -24,8 +24,8 @@ public class Game
     private Room currentRoom;
     private Health health;
     private int currentHealthNum;
-    private ArrayList itemsInPack;
-    private ArrayList boatItems;
+    private ArrayList<String> itemsInPack;
+    private ArrayList<String> boatItems;
     /**
      * Create the game and initialise its internal map.
      */
@@ -37,7 +37,7 @@ public class Game
         parserWithFileInput = new ParserWithFileInput();
         health = new Health();
         currentHealthNum = health.getHealthNum();
-        itemsInPack = new ArrayList();
+        itemsInPack = new ArrayList<String>();
     }
 
     /**
@@ -108,10 +108,27 @@ public class Game
         while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
+            if(currentHealthNum <= 0){
+                finished = true;
+            }
+        }
+        if(currentHealthNum <= 0)
+        {
+             System.out.println("You died");
+             System.out.println("Want to play again");
+             Command command = parser.getCommand();
+             String YN command.getCommandWord();
+             boolean Play = YN.isYesOrNo(YN);
+             while (false){
+             System.out.println("that is not Y or N");
+             Command command = parser.getCommand();
+             String YN command.getCommandWord();
+             boolean Play = YN.isYesOrNo(YN);
+            }
+            
         }
         System.out.println("Thank you for playing.  Good bye.");
     }
-<<<<<<< HEAD
     
      public boolean isYesOrNo(String YN)
      {
@@ -123,8 +140,6 @@ public class Game
             }
      }
      
-=======
->>>>>>> FETCH_HEAD
     public void playWithFileInput() 
     {            
         printWelcome();
@@ -145,12 +160,13 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
+        System.out.println("Welcome to Survival Fighter!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
         System.out.println(health.getHealthString(currentHealthNum));
+        System.out.println("your pack contains: " +printItemsInPack());
     }
 
     /**
@@ -176,6 +192,9 @@ public class Game
         }
         else if (commandWord.equals("get")) {
            pickUpItem(command);
+        }
+        else if (commandWord.equals("die")) {
+           die();
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
@@ -225,6 +244,7 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
             
             System.out.println(health.getHealthString(currentHealthNum));
+            System.out.println(printItemsInPack());
         }
     }
     
@@ -239,10 +259,13 @@ public class Game
         String item = command.getSecondWord();
         Boolean isItInRoom = currentRoom.availabilityCheck(item);
         
-        if (isItInRoom == false) {
+        if (isItInRoom == true) {
+            itemsInPack.add(item);
+            System.out.println("you picked up the "+item);
+        }
+        else {
             System.out.println("Item not in this room");
         }
-<<<<<<< HEAD
         
         public void dropItem(Comamand command)
           {
@@ -263,17 +286,8 @@ public class Game
                 }
     }
         
-=======
-        else {
-            
-            //currentRoom = nextRoom;//
-           System.out.println("add to add to pack");
-            
-            //System.out.println(health.getHealthString(currentHealthNum));
->>>>>>> FETCH_HEAD
         }
        
-        
         
     }
     /** 
@@ -290,5 +304,30 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+    
+    public String printItemsInPack()
+    {
+        int i = 1;
+        int numberOfItemsInPack = itemsInPack.size();
+        String itemsInPackList = new String();
+        if (itemsInPack.size() == 0){
+            return "you have nothing in you bag";
+        }
+        
+        while(i <= itemsInPack.size())
+        {
+            
+            itemsInPackList = itemsInPackList +" "+ itemsInPack.get(i-1);
+            i++;
+        }
+        return itemsInPackList;
+        
+    }
+    
+    public void die()
+    {
+       currentHealthNum = currentHealthNum - 1;
+       System.out.println("Hurt by 1");
     }
 }
