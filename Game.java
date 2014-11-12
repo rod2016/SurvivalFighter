@@ -247,7 +247,7 @@ public class Game
         }
         
         public void dropItem(Comamand command)
-    {
+          {
          if(!command.hasSecondWord()) {
                  System.out.println("Drop what?");
             return;}
