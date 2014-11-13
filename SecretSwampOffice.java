@@ -18,14 +18,14 @@ public class SecretSwampOffice extends Room
     {
         if(command.getSecondWord().equals("frog"))
         {
-            System.out.println("You pull the lever and part of the wall " +
-                "slides open revealing a staircase.");
-            Room cellar = new Room("in a dark and dusty cellar");
-            setExit("up", cellar);
-            cellar.setExit("down", this);
-            changeDescription("in the Spooky Tavern" +
-            ".  \nThere is a secret lever hidden as a beer tap." +
-            "\nAn opening in the wall reveals a staircase leading down.");
+            System.out.println("You push the frog and a wild crocodile appears.  " +
+                "It opens its mouth, revealing a staircase.");
+            Room crocodile = new Room("in the pit of the crocodile's belly");
+            setExit("up", crocodile);
+            crocodile.setExit("down", this);
+            changeDescription("in the Sleepy Swamp Area" +
+            ".  \nThere is a secret button hidden as a frog." +
+            "\nA crocodile appears and reveals a staircase leading down to its belly.");
         }
         else
         {

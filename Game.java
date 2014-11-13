@@ -81,7 +81,7 @@ public class Game
      */
     private void createRoomsAndItems()
     {
-        Room room1, room2, room3, room4, room5, SecretRoom, room6, beach, ocean;
+        Room room1, room2, room3, room4, room5, room6, beach, ocean;
       
         // create the rooms
         beach = new Room("on a really warm, nice, beautiful beach");  

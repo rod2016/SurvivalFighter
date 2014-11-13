@@ -16,11 +16,11 @@ public class SpecialRoomOffice extends Room
     {
         super(description);
     }
-    public void pull(Command command)
+    public void press(Command command)
     {
         if(command.getSecondWord().equals("lever"))
         {
-            System.out.println("You pull the lever and part of the wall " +
+            System.out.println("You press the lever and part of the wall " +
                 "slides open revealing a staircase.");
             Room cellar = new Room("in a dark and dusty cellar");
             setExit("down", cellar);
@@ -31,7 +31,7 @@ public class SpecialRoomOffice extends Room
         }
         else
         {
-            super.pull(command);
+            super.press(command);
         }
     }
 

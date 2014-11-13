@@ -3,5 +3,5 @@ comment0.params=description
 comment0.target=SpecialRoomOffice(java.lang.String)
 comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ SpecialRoomOffice\r\n
 comment1.params=command
-comment1.target=void\ pull(Command)
+comment1.target=void\ press(Command)
 numComments=2
