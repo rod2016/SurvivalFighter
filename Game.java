@@ -89,7 +89,7 @@ public class Game
         room2 = new SpecialRoomOffice("in the Spooky Tavern" +
             ".  There is a lever disguised as a beer tap.");
         room3 = new Room("in the Haunted Hunting Grounds");
-        room4 = new Room("in the Sleepy Swamp Area" +
+        room4 = new SecretSwampOffice("in the Sleepy Swamp Area" +
             ".  There is a secret button disguised as a frog.");
         room5 = new Room("in the Creepy Canopy Area");
 
@@ -221,6 +221,14 @@ public class Game
         }
         else if (commandWord.equals("die")) {
            die();
+        }
+         else if (commandWord.equals("press")) {
+            currentRoom.press(command);
+            System.out.println(currentRoom.getLongDescription());
+        }
+         else if (commandWord.equals("pull")) {
+            currentRoom.press(command);
+            System.out.println(currentRoom.getLongDescription());
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
