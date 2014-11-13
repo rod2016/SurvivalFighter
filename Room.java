@@ -116,6 +116,10 @@ public class Room
     {
         description = newDescription;
     }
+     public void press(Command command)
+    {
+        System.out.println("Do What?");
+    }
     
     
     }

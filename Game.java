@@ -89,7 +89,8 @@ public class Game
         room2 = new SpecialRoomOffice("in the Spooky Tavern" +
             ".  There is a lever disguised as a beer tap.");
         room3 = new Room("in the Haunted Hunting Grounds");
-        room4 = new Room("in the Sleepy Swamp Area ");
+        room4 = new Room("in the Sleepy Swamp Area" +
+            ".  There is a secret button disguised as a frog.");
         room5 = new Room("in the Creepy Canopy Area");
 
         room6 = new Room("in the Deathly Graveyard Area");
