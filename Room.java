@@ -108,6 +108,14 @@ public class Room
         return false;
     }
     
+     public void pull(Command command)
+    {
+        System.out.println("Do What?");
+    }
+    public void changeDescription(String newDescription)
+    {
+        description = newDescription;
+    }
     
     
     }

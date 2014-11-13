@@ -1,9 +1,9 @@
-go east
-go west
-go west
-go east
-go south
-go east
-go west
-go north
+go up
+go right
+go right
+go left
+go down
+go left
+go right
+go up
 quit

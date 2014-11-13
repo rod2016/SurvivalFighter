@@ -31,6 +31,8 @@ public class Game
      */
     public Game() 
     {
+        
+        
         createRoomsAndItems();
         
         parser = new Parser();
@@ -39,23 +41,60 @@ public class Game
         currentHealthNum = health.getHealthNum();
         itemsInPack = new ArrayList<String>();
     }
+    private void printWelcome()
+    {
+        System.out.println();
+        System.out.println("Welcome to Survival Fighter!");
+        System.out.println("You have just woken up from what seems like a very long nap.");
+        System.out.println("The last thing you remember was jumping out of an exploding plane");
+        System.out.println("and landing in cold water as the freezing temperature slowly lulled you to sleep.");
+        System.out.println("You wake up on a beautiful island surrouded by a large body of water and deep dark jungle.");
+        System.out.println("After regaining your seses you decide that the best way to make it out is building a boat.");
+        System.out.println("You notice many things you can use around you and can bet that if you venture deep enough");
+        System.out.println("in the jungle you will find all the items you need in order to build a good boat.");       
+        System.out.println("");
+        System.out.println("You can travel North, West, East and West. Here's what you need to know: ");
+         System.out.println("");
+        System.out.println("Each of the directions will lead to a different region of the island");
+        System.out.println("");
+        System.out.println("You have a *health bar* that will notify you of your health status whenever you enter a new region of the island ");
+        System.out.println("");
+        System.out.println("You have a *backpack* where you can gather up to 5 items and use/discard them at any point in your adventure");
+        System.out.println("");
+        System.out.println("Expect dangers and obstacles along the way.");
+        System.out.println("");
+        System.out.println("Try to pick up as many useful items as you can.");
+        System.out.println("");
+        System.out.println("Eat sometimes to increase your health status bar.");
+        System.out.println("");
+        System.out.println("Take care....if you can.");
+        System.out.println("");
+        System.out.println("Type 'help' if you need help.");
+        System.out.println();
+        System.out.println(currentRoom.getLongDescription());
+        System.out.println(health.getHealthString(currentHealthNum));
+        System.out.println("your pack contains: " +printItemsInPack());
+    }
 
     /**
      * Create all the rooms and link their exits together.
      */
     private void createRoomsAndItems()
     {
-        Room room1, room2, room3, room4, room5, room6, beach, ocean;
+        Room room1, room2, room3, room4, room5, SecretRoom, room6, beach, ocean;
       
         // create the rooms
-        room1 = new Room("Smelly Seaweed Area");
-        room2 = new Room("Creepy Canopy Area");
-        room3 = new Room("Haunted Hunting Grounds");
-        room4 = new Room("Sleepy Swamp Area ");
-        room5 = new Room("Spooky Tavern");
-        room6 = new Room("Deathly Graveyard Area");
-        beach = new Room("Really warm, nice, beautiful beach");    
-        ocean = new Room("Death Ocean");    /// needs to be a special room 
+        beach = new Room("on a really warm, nice, beautiful beach");  
+        room1 = new Room("in the Smelly Seaweed Area");
+        room2 = new SpecialRoomOffice("in the Spooky Tavern" +
+            ".  There is a lever disguised as a beer tap.");
+        room3 = new Room("in the Haunted Hunting Grounds");
+        room4 = new Room("in the Sleepy Swamp Area ");
+        room5 = new Room("in the Creepy Canopy Area");
+
+        room6 = new Room("in the Deathly Graveyard Area");
+         
+        ocean = new Room("in Death Ocean");    /// needs to be a special room 
         // initialise room exits
         room1.setExit("up", room4);
         room1.setExit("down",beach );
@@ -64,7 +103,13 @@ public class Game
         
         
         room2.setExit("up", room6);
-        room2.setExit("right", room4);
+        room2.setExit("right", room1);
+        room2.setExit("down", beach);
+        
+        
+        
+        
+        
         
         room3.setExit("up", room5);
         room3.setExit("left", room1);
@@ -73,14 +118,22 @@ public class Game
         room4.setExit("right", room5);
         room4.setExit("left", room6);
         
+        
         room5.setExit("down", room3);
         room5.setExit("left", room4);
+       
+        
         
         room6.setExit("down", room2);
-        room6.setExit("left", room4);
+        room6.setExit("right", room4);
      
         currentRoom = beach;  // start game outside
         beach.setExit("up", room1);
+        beach.setExit("down", ocean);
+        
+        
+        
+        
         
         Item sword, bat, gun;
         
@@ -127,26 +180,20 @@ public class Game
                 
         boolean finished = false;
         while (! finished) {
-            Command command = parserWithFileInput.getCommand();
+            Command command = parser.getCommand();
             finished = processCommand(command);
+            if(currentHealthNum <= 0){
+                finished = true;
+            } 
         }
+        if(currentHealthNum <= 0)
+        {
+             System.out.println("You died");
+             
+            }
         System.out.println("Thank you for playing.  Good bye.");
     }
-    /**
-     * Print out the opening message for the player.
-     */
-    private void printWelcome()
-    {
-        System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type 'help' if you need help.");
-        System.out.println();
-        System.out.println(currentRoom.getLongDescription());
-        System.out.println(health.getHealthString(currentHealthNum));
-        System.out.println("your pack contains: " +printItemsInPack());
-    }
-
+   
     /**
      * Given a command, process (that is: execute) the command.
      * @param command The command to be processed.
