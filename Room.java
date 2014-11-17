@@ -101,7 +101,7 @@ public class Room
             String thisItemName = itemsInRoom.get(thisItem);
             
             if(thisItemName.equals(item)){
-               itemsInRoom.remove(thisItem);
+               
                return true; 
             }
             

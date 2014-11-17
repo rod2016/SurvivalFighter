@@ -298,7 +298,7 @@ public class Game
             }
             System.out.println();
             System.out.println("----------------------------------------------------------");
-            System.out.println("your pack contains: " +printItemsInPack());
+            System.out.println(printItemsInPack());
             System.out.println(health.getHealthString(currentHealthNum));
             System.out.println();
             System.out.println(currentRoom.getLongDescription());
@@ -346,7 +346,9 @@ public class Game
         
         if (isItInRoom == false) {
             System.out.println("Item not in this room");
+            return;
         }
+        
         if (itemsInPack.size() == maxPackSize)
         {
             System.out.println("Your Pack is full. You must drop items to add other items");
@@ -356,6 +358,7 @@ public class Game
             
             itemsInPack.put(itemName,thisItem);
             System.out.println("you picked up the "+itemName);
+            System.out.println(printItemsInPack());
         }
         
         
@@ -391,7 +394,7 @@ public class Game
             
         }
         
-        return itemsInPackList;
+        return "Your Pack contains: " +itemsInPackList;
         
         
     }
@@ -422,6 +425,7 @@ public class Game
          boolean isItInPack = packAvailabilityCheck(itemName);
          if (isItInPack == false) {
             System.out.println("Item not in your pack");
+            return;
         }
          
         for(String thisItemName : keys) {
@@ -431,6 +435,7 @@ public class Game
                   currentRoom.setItem(thisItem, thisItemName);
                   itemsInPack.remove(thisItemName);
                   System.out.println("You dropped "+ command.getSecondWord());
+                  System.out.println(printItemsInPack());
                   return;
                 }
             
