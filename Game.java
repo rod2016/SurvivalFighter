@@ -48,9 +48,9 @@ public class Game
         currentHealthNum = health.getHealthNum();
         itemsInPack = new HashMap<String,Item>();
         maxPackSize = 2;
-        //trigger = new Trigger();
-        //animalAttackProb = 100;
-        //illnessProb = 3;
+        trigger = new Trigger();
+        animalAttackProb = 21;
+        illnessProb = 11;
     }
     private void printWelcome()
     {
@@ -82,9 +82,10 @@ public class Game
         System.out.println("");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        
         System.out.println(health.getHealthString(currentHealthNum));
         System.out.println("your pack contains: " +printItemsInPack());
+        System.out.println(currentRoom.getLongDescription());
     }
 
     /**
@@ -142,7 +143,7 @@ public class Game
         currentRoom = beach;  // start game outside
         beach.setExit("up", room1);
         beach.setExit("down", ocean);
-        
+        ocean.setDeadly();
         
         
         
@@ -289,10 +290,20 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            
+            if(currentRoom.isDeadly() == true)
+            {
+               instantDeath();
+               return;
+            }
+            System.out.println();
+            System.out.println("----------------------------------------------------------");
             System.out.println("your pack contains: " +printItemsInPack());
             System.out.println(health.getHealthString(currentHealthNum));
-               
+            System.out.println();
+            System.out.println(currentRoom.getLongDescription());
+            
+            
             
             /*We will set the even probabilities to be part of the event class
              * 
@@ -389,6 +400,11 @@ public class Game
     {
        currentHealthNum = currentHealthNum - 1;
        System.out.println("Hurt by 1");
+    }
+    public void instantDeath()
+    {
+       currentHealthNum = currentHealthNum - 10;
+       
     }
     
     

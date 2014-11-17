@@ -21,7 +21,7 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<Item, String> itemsInRoom;
-
+    private boolean deadly;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -33,6 +33,7 @@ public class Room
         this.description = description;
         exits = new HashMap<String, Room>();
         itemsInRoom = new HashMap<Item, String>();
+        deadly = false;
     }
 
     /**
@@ -134,6 +135,14 @@ public class Room
         }
         return null;
     }
-    
+    public boolean isDeadly()
+    {
+        return deadly;
+        
     }
-
+    public void setDeadly()
+    {
+        deadly = true;
+        
+    }
+}
