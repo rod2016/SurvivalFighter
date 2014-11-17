@@ -120,7 +120,20 @@ public class Room
     {
         System.out.println("Do What?");
     }
-    
+    public Item getItemFromRoom(String item){
+        Set<Item> keys = itemsInRoom.keySet();
+        for(Item thisItem : keys) {
+            String thisItemName = itemsInRoom.get(thisItem);
+            
+            if(thisItemName.equals(item)){
+                
+               itemsInRoom.remove(thisItem);
+               return thisItem; 
+            }
+            
+        }
+        return null;
+    }
     
     }
 

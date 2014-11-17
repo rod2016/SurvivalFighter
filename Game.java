@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -24,8 +25,14 @@ public class Game
     private Room currentRoom;
     private Health health;
     private int currentHealthNum;
-     private ArrayList<String> itemsInPack;
-    private ArrayList<String> boatItems;
+    private HashMap<String, Item> itemsInPack;
+    private HashMap<String, Item> boatItems;
+    private Event animalAttach;
+    private Event illnessToPerson;
+    private Trigger trigger;
+    private int animalAttackProb;
+    private int illnessProb;
+    private int maxPackSize;
     /**
      * Create the game and initialise its internal map.
      */
@@ -39,7 +46,11 @@ public class Game
         parserWithFileInput = new ParserWithFileInput();
         health = new Health();
         currentHealthNum = health.getHealthNum();
-        itemsInPack = new ArrayList<String>();
+        itemsInPack = new HashMap<String,Item>();
+        maxPackSize = 2;
+        //trigger = new Trigger();
+        //animalAttackProb = 100;
+        //illnessProb = 3;
     }
     private void printWelcome()
     {
@@ -54,7 +65,7 @@ public class Game
         System.out.println("in the jungle you will find all the items you need in order to build a good boat.");       
         System.out.println("");
         System.out.println("You can travel North, West, East and West. Here's what you need to know: ");
-         System.out.println("");
+        System.out.println("");
         System.out.println("Each of the directions will lead to a different region of the island");
         System.out.println("");
         System.out.println("You have a *health bar* that will notify you of your health status whenever you enter a new region of the island ");
@@ -230,6 +241,9 @@ public class Game
             currentRoom.press(command);
             System.out.println(currentRoom.getLongDescription());
         }
+        else if (commandWord.equals("drop")) {
+            dropItem(command);
+        }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -278,10 +292,37 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
             System.out.println("your pack contains: " +printItemsInPack());
             System.out.println(health.getHealthString(currentHealthNum));
+               
+            
+            /*We will set the even probabilities to be part of the event class
+             * 
+            */
+            boolean fire = trigger.fire(animalAttackProb); 
+            //put these in there own methods 
+              if(fire == true)
+              {
+                  //Event animalAttack = new Event();
+                  
+                  
+                  //int danager = animalAttack.getDamage();
+                  
+                  System.out.println("You got attacked ");
+                  die();
+              }
+              
+              if(fire == false){  
+                 boolean fire2 = trigger.fire(illnessProb);
+            
+                 if (fire2 == true)
+                  {
+                       System.out.println("you got sick");
+                       die();
+                  }
+               }
         }
     }
     
-    public void pickUpItem(Command command){
+    private void pickUpItem(Command command){
         
          if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
@@ -289,16 +330,21 @@ public class Game
             return;
         }
 
-        String item = command.getSecondWord();
-        Boolean isItInRoom = currentRoom.availabilityCheck(item);
+        String itemName = command.getSecondWord();
+        Boolean isItInRoom = currentRoom.availabilityCheck(itemName);
         
         if (isItInRoom == false) {
             System.out.println("Item not in this room");
         }
+        if (itemsInPack.size() == maxPackSize)
+        {
+            System.out.println("Your Pack is full. You must drop items to add other items");
+        }
         else {
+            Item thisItem = currentRoom.getItemFromRoom(itemName);
             
-            itemsInPack.add(item);
-            System.out.println("you picked up the "+item);
+            itemsInPack.put(itemName,thisItem);
+            System.out.println("you picked up the "+itemName);
         }
         
         
@@ -321,25 +367,74 @@ public class Game
       
     public String printItemsInPack()
     {
-        int i = 1;
-        int numberOfItemsInPack = itemsInPack.size();
-        String itemsInPackList = new String();
+        
+        
         if (itemsInPack.size() == 0){
-            return "you have nothing in you bag";
+            return "you have nothing in your bag";
+        }
+        String itemsInPackList = new String();
+         Set<String> keys = itemsInPack.keySet();
+        for(String thisItemName : keys) {
+            
+            itemsInPackList = itemsInPackList +" "+ thisItemName;
+            
         }
         
-        while(i <= itemsInPack.size())
-        {
-            
-            itemsInPackList = itemsInPackList +" "+ itemsInPack.get(i-1);
-            i++;
-        }
         return itemsInPackList;
         
+        
     }
+    
     public void die()
     {
        currentHealthNum = currentHealthNum - 1;
        System.out.println("Hurt by 1");
+    }
+    
+    
+    private void dropItem(Command command)
+    {
+        
+         if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Drop what?");
+            return;
+        }
+
+        String itemName = command.getSecondWord();
+         Set<String> keys = itemsInPack.keySet();
+         boolean isItInPack = packAvailabilityCheck(itemName);
+         if (isItInPack == false) {
+            System.out.println("Item not in your pack");
+        }
+         
+        for(String thisItemName : keys) {
+            
+              if(thisItemName.equals(itemName)){
+                  Item thisItem = itemsInPack.get(thisItemName);
+                  currentRoom.setItem(thisItem, thisItemName);
+                  itemsInPack.remove(thisItemName);
+                  System.out.println("You dropped "+ command.getSecondWord());
+                  return;
+                }
+            
+        }
+        
+        
+    }
+    public boolean packAvailabilityCheck(String item){
+      
+        Set<String> keys = itemsInPack.keySet();
+        for(String thisItemName : keys) {
+            
+            
+            if(thisItemName.equals(item)){
+               
+               return true; 
+            }
+            
+        }
+        return false;
+    
     }
 }
