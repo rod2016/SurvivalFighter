@@ -21,6 +21,7 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<Item, String> itemsInRoom;
+
     private boolean deadly;
     /**
      * Create a room described "description". Initially, it has
@@ -49,6 +50,9 @@ public class Room
     {
         itemsInRoom.put(item,info);
     }
+    
+   
+       
     /**
      * @return The short description of the room
      * (the one that was defined in the constructor).

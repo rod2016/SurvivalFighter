@@ -38,10 +38,8 @@ public class Game
      */
     public Game() 
     {
-        
-        
+
         createRoomsAndItems();
-        
         parser = new Parser();
         parserWithFileInput = new ParserWithFileInput();
         health = new Health();
@@ -52,6 +50,7 @@ public class Game
         animalAttackProb = 21;
         illnessProb = 11;
     }
+
     private void printWelcome()
     {
         System.out.println();
@@ -82,7 +81,7 @@ public class Game
         System.out.println("");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        
+
         System.out.println(health.getHealthString(currentHealthNum));
         System.out.println("your pack contains: " +printItemsInPack());
         System.out.println(currentRoom.getLongDescription());
@@ -93,8 +92,8 @@ public class Game
      */
     private void createRoomsAndItems()
     {
-        Room room1, room2, room3, room4, room5, room6, beach, ocean;
-      
+        Room room1, room2, room3, room4, room5, room6,room7, room8, room9, beach, ocean;
+
         // create the rooms
         beach = new Room("on a really warm, nice, beautiful beach");  
         room1 = new Room("in the Smelly Seaweed Area");
@@ -106,60 +105,76 @@ public class Game
         room5 = new Room("in the Creepy Canopy Area");
 
         room6 = new Room("in the Deathly Graveyard Area");
-         
+
+        room7 = new Room("in the Deathly Graveyard Area");
+        room8 = new Room("in the Deathly Graveyard Area");
+        room9 = new Room("in the Deathly Graveyard Area");
+        
         ocean = new Room("in Death Ocean");    /// needs to be a special room 
         // initialise room exits
         room1.setExit("up", room4);
         room1.setExit("down",beach );
         room1.setExit("right", room3);
         room1.setExit("left", room2);
-        
-        
+
         room2.setExit("up", room6);
         room2.setExit("right", room1);
         room2.setExit("down", beach);
+
         
         
-        
-        
-        
-        
-        room3.setExit("up", room5);
+       
         room3.setExit("left", room1);
-        
+        room3.setExit("down", beach);
+        room3.setExit("right", room8);
+
         room4.setExit("down", room1);
         room4.setExit("right", room5);
         room4.setExit("left", room6);
+
         
-        
-        room5.setExit("down", room3);
         room5.setExit("left", room4);
-       
-        
+        room5.setExit("right", room7);
+
         
         room6.setExit("down", room2);
         room6.setExit("right", room4);
-     
-        currentRoom = beach;  // start game outside
+
+        room7.setExit("left", room5);
+        room7.setExit("up", room9);
+        
+        room8.setExit("left", room3);
+
+            currentRoom = beach;  // start game outside
         beach.setExit("up", room1);
         beach.setExit("down", ocean);
         ocean.setDeadly();
-        
-        
-        
+
         
         Item sword, bat, gun;
-        
         sword = new Item("this will hurt things");
         bat = new Item("this will hurt things");
         gun = new Item("this will hurt things");
         
-        room1.setItem(sword, "sword");
-        room1.setItem(bat, "bat");
-        room1.setItem(gun, "gun");
+        Food apple, chicken, pie, milkshake;
         
+        apple = new Food("this will add 1 point to your health", 1); 
+        chicken = new Food("this will add 1 point to your health", 1);
+        pie = new Food("this will add 1 point to your health", 1);
+        milkshake = new Food("this will add 1 point to your health", 1);
+
+        beach.setItem(sword, "sword");
+        room6.setItem(bat, "bat");
+        room3.setItem(gun, "gun");
+        
+        beach.setItem(apple, "apple");
+        room2.setItem(chicken, "chicken");
+        room4.setItem(pie, "pie");
+        room8.setItem(milkshake, "milkshake");
+        room5.setItem(apple, "apple");
+
     }
-    
+
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -169,7 +184,7 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -180,17 +195,18 @@ public class Game
         }
         if(currentHealthNum <= 0)
         {
-             System.out.println("You died");
-             
-            }
+            System.out.println("You died");
+
+        }
         System.out.println("Thank you for playing.  Good bye.");
     }
+
     public void playWithFileInput() 
     {            
         printWelcome();
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -201,12 +217,12 @@ public class Game
         }
         if(currentHealthNum <= 0)
         {
-             System.out.println("You died");
-             
-            }
+            System.out.println("You died");
+
+        }
         System.out.println("Thank you for playing.  Good bye.");
     }
-   
+
     /**
      * Given a command, process (that is: execute) the command.
      * @param command The command to be processed.
@@ -229,16 +245,16 @@ public class Game
             goRoom(command);
         }
         else if (commandWord.equals("get")) {
-           pickUpItem(command);
+            pickUpItem(command);
         }
         else if (commandWord.equals("die")) {
-           die();
+            die();
         }
-         else if (commandWord.equals("press")) {
+        else if (commandWord.equals("press")) {
             currentRoom.press(command);
             System.out.println(currentRoom.getLongDescription());
         }
-         else if (commandWord.equals("pull")) {
+        else if (commandWord.equals("pull")) {
             currentRoom.press(command);
             System.out.println(currentRoom.getLongDescription());
         }
@@ -290,11 +306,11 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
-            
+
             if(currentRoom.isDeadly() == true)
             {
-               instantDeath();
-               return;
+                instantDeath();
+                return;
             }
             System.out.println();
             System.out.println("----------------------------------------------------------");
@@ -302,40 +318,37 @@ public class Game
             System.out.println(health.getHealthString(currentHealthNum));
             System.out.println();
             System.out.println(currentRoom.getLongDescription());
-            
-            
+
             
             /*We will set the even probabilities to be part of the event class
              * 
-            */
+             */
             boolean fire = trigger.fire(animalAttackProb); 
             //put these in there own methods 
-              if(fire == true)
-              {
-                  //Event animalAttack = new Event();
-                  
-                  
-                  //int danager = animalAttack.getDamage();
-                  
-                  System.out.println("You got attacked ");
-                  die();
-              }
-              
-              if(fire == false){  
-                 boolean fire2 = trigger.fire(illnessProb);
-            
-                 if (fire2 == true)
-                  {
-                       System.out.println("you got sick");
-                       die();
-                  }
-               }
+            if(fire == true)
+            {
+                //Event animalAttack = new Event();
+
+                //int danager = animalAttack.getDamage();
+                System.out.println("You got attacked ");
+                die();
+            }
+
+            if(fire == false){  
+                boolean fire2 = trigger.fire(illnessProb);
+
+                if (fire2 == true)
+                {
+                    System.out.println("you got sick");
+                    die();
+                }
+            }
         }
     }
-    
+
     private void pickUpItem(Command command){
-        
-         if(!command.hasSecondWord()) {
+
+        if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             System.out.println("Get what?");
             return;
@@ -343,25 +356,24 @@ public class Game
 
         String itemName = command.getSecondWord();
         Boolean isItInRoom = currentRoom.availabilityCheck(itemName);
-        
+
         if (isItInRoom == false) {
             System.out.println("Item not in this room");
             return;
         }
-        
+
         if (itemsInPack.size() == maxPackSize)
         {
             System.out.println("Your Pack is full. You must drop items to add other items");
         }
         else {
             Item thisItem = currentRoom.getItemFromRoom(itemName);
-            
+
             itemsInPack.put(itemName,thisItem);
             System.out.println("you picked up the "+itemName);
             System.out.println(printItemsInPack());
         }
-        
-        
+
     }
     /** 
      * "Quit" was entered. Check the rest of the command to see
@@ -378,84 +390,77 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-      
+
     public String printItemsInPack()
     {
-        
-        
+
         if (itemsInPack.size() == 0){
             return "you have nothing in your bag";
         }
         String itemsInPackList = new String();
-         Set<String> keys = itemsInPack.keySet();
+        Set<String> keys = itemsInPack.keySet();
         for(String thisItemName : keys) {
-            
+
             itemsInPackList = itemsInPackList +" "+ thisItemName;
-            
+
         }
-        
+
         return "Your Pack contains: " +itemsInPackList;
-        
-        
+
     }
-    
     public void die()
     {
-       currentHealthNum = currentHealthNum - 1;
-       System.out.println("Hurt by 1");
+        currentHealthNum = currentHealthNum - 1;
+        System.out.println("Hurt by 1");
     }
+
     public void instantDeath()
     {
-       currentHealthNum = currentHealthNum - 10;
-       
+        currentHealthNum = currentHealthNum - 10;
+
     }
-    
-    
+
     private void dropItem(Command command)
     {
-        
-         if(!command.hasSecondWord()) {
+
+        if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             System.out.println("Drop what?");
             return;
         }
 
         String itemName = command.getSecondWord();
-         Set<String> keys = itemsInPack.keySet();
-         boolean isItInPack = packAvailabilityCheck(itemName);
-         if (isItInPack == false) {
+        Set<String> keys = itemsInPack.keySet();
+        boolean isItInPack = packAvailabilityCheck(itemName);
+        if (isItInPack == false) {
             System.out.println("Item not in your pack");
             return;
         }
-         
+
         for(String thisItemName : keys) {
-            
-              if(thisItemName.equals(itemName)){
-                  Item thisItem = itemsInPack.get(thisItemName);
-                  currentRoom.setItem(thisItem, thisItemName);
-                  itemsInPack.remove(thisItemName);
-                  System.out.println("You dropped "+ command.getSecondWord());
-                  System.out.println(printItemsInPack());
-                  return;
-                }
-            
+
+            if(thisItemName.equals(itemName)){
+                Item thisItem = itemsInPack.get(thisItemName);
+                currentRoom.setItem(thisItem, thisItemName);
+                itemsInPack.remove(thisItemName);
+                System.out.println("You dropped "+ command.getSecondWord());
+                System.out.println(printItemsInPack());
+                return;
+            }
+
         }
-        
-        
+
     }
     public boolean packAvailabilityCheck(String item){
-      
         Set<String> keys = itemsInPack.keySet();
         for(String thisItemName : keys) {
-            
-            
+
             if(thisItemName.equals(item)){
-               
-               return true; 
+                return true; 
             }
-            
+
         }
         return false;
-    
+
     }
 }
